@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-type Todos = {
-  title: string;
-  priority: number;
-  content: string;
-  isDone: boolean;
-};
-
 const todosList = ref([
   {
     "title": "ご飯を作る",
-    "priority": 1,
+    "priority": 3,
     "content": "お昼ご飯を作ります",
     "isDone": false
   },
@@ -29,12 +22,30 @@ const todosList = ref([
   },
 ]);
 
+const priorityText = computed((): string[] => {
+  return todosList.value.map(todo => {
+    switch (todo.priority) {
+      case 1:
+        return "低";
+      case 2:
+        return "普通";
+      case 3:
+        return "高";
+      default:
+        return "";
+    }
+  });
+});
+
 </script>
 
 <template>
-<div v-for="(todo, index) in todosList" :key="index" class="bg-gray-50 rounded-lg shadow-md my-8 p-10">
-  <h2 class="text-lg font-semibold ">{{ todo.title }}</h2>
-  <p>優先度： {{ todo.priority }}</p>
-  <p class="text-gray-400">{{ todo.content }}</p>
-</div>
+  <div v-for="(todo, index) in todosList" :key="index" class="rounded-lg shadow-md my-8 p-10" :disabled="todo.isDone" :class="todo.isDone ? 'bg-gray-200' : 'bg-gray-50'">
+    <div class="flex justify-between">
+      <h2 class="text-lg font-semibold ">{{ todo.title }}</h2>
+      <input type="checkbox" v-model="todo.isDone">
+    </div>
+    <p>優先度：{{ priorityText[index] }}</p>
+    <p class="text-gray-400">{{ todo.content }}</p>
+  </div>
 </template>
