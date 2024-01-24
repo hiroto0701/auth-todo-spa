@@ -7,9 +7,7 @@ import AddTaskButton from '@/components/AddTaskButton.vue';
 <template>
   <main-header />
   <main class="w-9/12 h-screen mx-auto my-20">
-    <div class="flex w-full justify-between items-center gap-x-10">
-      <h2 class="text-lg font-serif font-semibold">User名さんのタスク一覧</h2>
-    </div>
+    <h2 class="text-lg font-serif font-semibold">User名さんのタスク一覧</h2>
     <div class="my-20">
       <task-list />
       <add-task-button />
