@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'viewer',
       component: () => import('@/components/TaskViewer.vue')
     },
+    {
+      path: '/register/',
+      name: 'register',
+      component: () => import('@/components/TaskRegister.vue')
+    },
   ]
 })
 
