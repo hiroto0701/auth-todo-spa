@@ -25,13 +25,18 @@ const priorityText = computed((): string[] => {
   });
 });
 
-const toViewer = (id: number): void => {
-  router.push({ name: 'viewer', params: { id: id }})
+const toViewer = (id: number, isDone: boolean): void => {
+  if (!isDone) {
+    router.push({ name: 'viewer', params: { id: id }})
+  }
 }
 </script>
 
 <template>
-  <div v-for="(todo, index) in todosList" :key="index" class="rounded-lg shadow-md my-8 p-10 cursor-pointer" :disabled="todo.isDone" :class="todo.isDone ? 'bg-gray-200' : 'bg-gray-50'" @click="toViewer(todo.id)">
+  <div v-for="(todo, index) in todosList" :key="index" class="rounded-lg shadow-md my-8 p-10 cursor-pointer" 
+                                          :disabled="todo.isDone"
+                                          :class="todo.isDone ? 'bg-gray-200 cursor-default' : 'bg-gray-50'"
+                                          @click="toViewer(todo.id, todo.isDone)">
     <div class="flex justify-between">
       <h2 class="text-lg font-semibold ">{{ todo.title }}</h2>
       <input type="checkbox" v-model="todo.isDone" @click.stop>
