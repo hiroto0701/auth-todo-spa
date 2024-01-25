@@ -9,5 +9,14 @@ import { ref, computed } from 'vue';
     <div class="flex w-full justify-between items-center gap-x-10">
       <h2 class="text-lg font-serif font-semibold">User名さんのタスク詳細</h2>
     </div>
+
+    <div class="rounded-lg shadow-md my-8 p-10 cursor-pointer">
+    <div class="flex justify-between">
+      <h2 class="text-lg font-semibold "></h2>
+      <input type="checkbox" @click.stop>
+    </div>
+    <p>優先度：</p>
+    <p class="text-gray-400"></p>
+  </div>
   </main>
 </template>
