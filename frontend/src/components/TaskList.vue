@@ -30,10 +30,6 @@ const toViewer = (id: number, isDone: boolean): void => {
     router.push({ name: 'viewer', params: { id: id }})
   }
 }
-
-const toRegister = (): void => {
-  router.push({ name: 'register' });
-}
 </script>
 
 <template>
