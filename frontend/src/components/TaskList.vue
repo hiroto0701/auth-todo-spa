@@ -38,10 +38,10 @@ const toViewer = (id: number, isDone: boolean): void => {
                                           :class="todo.isDone ? 'bg-gray-200 cursor-default' : 'bg-gray-50'"
                                           @click="toViewer(todo.id, todo.isDone)">
     <div class="flex justify-between">
-      <h2 class="text-lg font-semibold ">{{ todo.title }}</h2>
-      <input type="checkbox" v-model="todo.isDone" @click.stop>
+      <h2 class="text-lg my-3 font-semibold ">{{ todo.title }}</h2>
+      <input type="checkbox" class="my-3" v-model="todo.isDone" @click.stop>
     </div>
-    <p>優先度：{{ priorityText[index] }}</p>
-    <p class="text-gray-400">{{ todo.content }}</p>
+    <p class="my-3">優先度：{{ priorityText[index] }}</p>
+    <p class="text-gray-400 my-3">{{ todo.content }}</p>
   </div>
 </template>
