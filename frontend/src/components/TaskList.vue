@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useTodoStore } from '@/stores/todo'
+import { useTodoStore } from '@/stores/todo';
 
 const router = useRouter();
 const todoStore = useTodoStore();
 
 const todosList = computed(() => {
   return todoStore.todos;
-})
+});
 
 const priorityText = computed((): string[] => {
   return todosList.value.map(todo => {
@@ -30,6 +30,10 @@ const toViewer = (id: number, isDone: boolean): void => {
     router.push({ name: 'viewer', params: { id: id }})
   }
 }
+
+onMounted(() => {
+  todoStore.loadPage();
+});
 </script>
 
 <template>
@@ -39,7 +43,7 @@ const toViewer = (id: number, isDone: boolean): void => {
                                           @click="toViewer(todo.id, todo.isDone)">
     <div class="flex justify-between">
       <h2 class="text-lg my-3 font-semibold ">{{ todo.title }}</h2>
-      <input type="checkbox" class="my-3" v-model="todo.isDone" @click.stop>
+      <input type="checkbox" class="my-3" v-model="todo.isDone" @click.stop :checked="todo.isDone">
     </div>
     <p class="my-3">優先度：{{ priorityText[index] }}</p>
     <p class="text-gray-400 my-3">{{ todo.content }}</p>
