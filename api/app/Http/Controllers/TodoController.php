@@ -30,7 +30,9 @@ class TodoController extends Controller
      */
     public function viewer(string $id)
     {
-        //
+        $todo = Todo::findOrFail($id);
+
+        return $todo;
     }
 
     /**

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useTodoStore } from '@/stores/todo';
+import { useTodoIndexStore } from '@/stores/todo_index';
 
 const router = useRouter();
-const todoStore = useTodoStore();
+const todoStore = useTodoIndexStore();
 
 const todosList = computed(() => {
   return todoStore.todos;
@@ -43,9 +43,10 @@ onMounted(() => {
                                           @click="toViewer(todo.id, todo.isDone)">
     <div class="flex justify-between">
       <h2 class="text-lg my-3 font-semibold ">{{ todo.title }}</h2>
-      <input type="checkbox" class="my-3" v-model="todo.isDone" @click.stop :checked="todo.isDone">
+      <input type="checkbox" class="my-3" v-model="todo.isDone" @click.stop>
     </div>
     <p class="my-3">優先度：{{ priorityText[index] }}</p>
     <p class="text-gray-400 my-3">{{ todo.content }}</p>
   </div>
 </template>
+@/stores/todo_index

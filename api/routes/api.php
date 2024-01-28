@@ -17,9 +17,8 @@ use App\Http\Controllers\TodoController;
 
 Route::get('/load', [TodoController::class, 'index']);
 
-Route::get('/viewer/{id}', function () {
-    return view('welcome');
-});
+Route::get('/viewer/{id}', [TodoController::class, 'viewer']);
+
 
 Route::get('/register', function () {
     return view('welcome');
