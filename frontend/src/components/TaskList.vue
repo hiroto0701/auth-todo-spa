@@ -13,11 +13,11 @@ const todosList = computed(() => {
 const priorityText = computed((): string[] => {
   return todosList.value.map(todo => {
     switch (todo.priority) {
-      case 1:
+      case 3:
         return "低";
       case 2:
         return "普通";
-      case 3:
+      case 1:
         return "高";
       default:
         return "";
