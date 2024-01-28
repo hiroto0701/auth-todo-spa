@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 interface Todo {
-  id: number;
+  id?: number;
   title: string;
   priority: number;
   content: string;
@@ -13,9 +13,12 @@ interface Todo {
 export const useTodoFormStore = defineStore('todo_form', {
   state: () => ({
     todos: [] as Todo[],
+    data: {} as Todo,
   }),
   getters: {
-
+    parameters(): Todo {
+      return { ...this.data };
+    }
   },
   actions: {
     load(id: number): void {
@@ -24,6 +27,9 @@ export const useTodoFormStore = defineStore('todo_form', {
       }).catch(error => {
         console.error('API呼び出しエラー', error);
       });
+    },
+    register(data: Todo): Promise<void> {
+      return axios.post('/api/register', data);
     }
   }
 });

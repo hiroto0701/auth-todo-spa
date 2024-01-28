@@ -22,7 +22,12 @@ class TodoController extends Controller
      */
     public function register(Request $request)
     {
-        //
+        $todos = new Todo();
+        $todos->title = $request->title;
+        $todos->priority = $request->priority;
+        $todos->content = $request->content;
+        $todos->isDone = $request->isDone;
+        $todos->save();
     }
 
     /**

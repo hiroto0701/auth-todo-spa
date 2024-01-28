@@ -20,9 +20,7 @@ Route::get('/load', [TodoController::class, 'index']);
 Route::get('/viewer/{id}', [TodoController::class, 'viewer']);
 
 
-Route::get('/register', function () {
-    return view('welcome');
-});
+Route::post('/register', [TodoController::class, 'register']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

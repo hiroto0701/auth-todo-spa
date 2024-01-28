@@ -2,8 +2,10 @@
 import MainHeader from '@/components/MainHeader.vue';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { useTodoFormStore } from '@/stores/todo_form';
 
 const router = useRouter();
+const todoStore = useTodoFormStore();
 
 const taskTitle = ref('');
 const priority = ref(1);
@@ -13,12 +15,27 @@ const toList = (): void => {
   router.push({ name: 'home' });
 }
 
-const doRegister = (): void => {
+const doRegister = async (): Promise<void> => {
   const taskTitleValue = taskTitle.value;
   const priorityValue = priority.value;
   const taskContentValue = taskContent.value;
   const isDone = false;
+
+  const data = {
+    title: taskTitleValue,
+    priority: priorityValue,
+    content: taskContentValue,
+    isDone: isDone,
+  };
+
+  try {
+    await todoStore.register(data);
+    toList(); // Optional: Redirect to the list after successful registration
+  } catch (error) {
+    console.error('タスクの登録エラー', error);
+  }
 }
+
 </script>
 <template>
   <main-header />
@@ -27,10 +44,10 @@ const doRegister = (): void => {
       <h2 class="text-lg font-serif font-semibold">User名さんのタスク登録</h2>
       <button class="bg-slate-600 text-white p-3 rounded-lg" @click="toList">戻る</button>
     </div>
-    <form @submit.prevent="" class="max-w-md mx-auto my-10 bg-white rounded-xl p-10 shadow-lg">
+    <form @submit.prevent="doRegister" class="max-w-md mx-auto my-10 bg-white rounded-xl p-10 shadow-lg">
       <div class="mb-4">
         <label for="taskName" class="block text-sm font-medium text-gray-600">タスク名</label>
-        <input v-model="taskTitle" type="text" id="taskName" name="taskName"
+        <input v-model="taskTitle" type="text" id="taskName" name="title"
               class="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:border-sky-500">
       </div>
 
@@ -46,7 +63,7 @@ const doRegister = (): void => {
 
       <div class="mb-4">
         <label for="taskContent" class="block text-sm font-medium text-gray-600">タスクの内容</label>
-        <textarea v-model="taskContent" id="taskContent" name="taskContent"
+        <textarea v-model="taskContent" id="taskContent" name="content"
                   class="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:border-sky-500">
         </textarea>
       </div>
