@@ -15,7 +15,8 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // login logout 追加
+    'paths' => ['api/*', 'login', 'logout', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
@@ -29,6 +30,8 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    // アプリケーションのCORS設定が、値がTrueのAccess-Control-Allow-Credentialsヘッダを返しているか確認する必要があります。
+    // SPAとLaravelがそれぞれ独立している場合はcors対策のためにtrueに変更
+    'supports_credentials' => true,
 
 ];
