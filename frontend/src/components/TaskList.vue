@@ -49,4 +49,3 @@ onMounted(() => {
     <p class="text-gray-400 my-3">{{ todo.content }}</p>
   </div>
 </template>
-@/stores/todo_index

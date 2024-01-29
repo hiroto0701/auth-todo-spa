@@ -30,6 +30,6 @@ export const useTodoFormStore = defineStore('todo_form', {
     },
     register(data: Todo): Promise<void> {
       return axios.post('/api/register', data);
-    }
+    },
   }
 });
