@@ -11,5 +11,5 @@ const toRegister = (): void => {
 </script>
 
 <template>
-  <button class="w-full bg-slate-200 rounded-md py-8" @click="toRegister">{{ buttonText }}</button>
+  <button class="w-full bg-slate-200 rounded-md py-8 mb-10" @click="toRegister">{{ buttonText }}</button>
 </template>
