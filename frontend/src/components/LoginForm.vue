@@ -2,11 +2,29 @@
 import MainHeader from '@/components/MainHeader.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 const router = useRouter();
 
 const email = ref<string>('');
 const password = ref<string>('');
+
+const login = () => {
+  return new Promise((resolve, reject) => {
+    axios.get('/sanctum/csrf-cookie').then(() => {
+      axios.post('/api/login', {
+        email: email.value,
+        password: password.value
+      }).then(() => {
+        resolve(true);
+        router.push({ name: 'home' });
+      }).catch((error) => {
+        console.log(error);
+        reject(true);
+      })
+    });
+  });
+}
 </script>
 
 <template>
@@ -15,7 +33,7 @@ const password = ref<string>('');
     <div class="flex justify-center">
       <h2 class="text-lg font-semibold">ログインフォーム</h2>
     </div>
-    <form @submit.prevent="" class="max-w-md mx-auto my-10 bg-white rounded-xl p-10 shadow-lg">
+    <form @submit.prevent="login" class="max-w-md mx-auto my-10 bg-white rounded-xl p-10 shadow-lg">
       <div class="mb-4">
         <label for="email" class="block text-sm font-medium text-gray-600">email</label>
         <input v-model="email" type="email" id="email" name="email"

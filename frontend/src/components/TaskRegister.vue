@@ -30,7 +30,7 @@ const doRegister = async (): Promise<void> => {
 
   try {
     await todoStore.register(data);
-    toList(); // Optional: Redirect to the list after successful registration
+    toList();
   } catch (error) {
     console.error('タスクの登録エラー', error);
   }
