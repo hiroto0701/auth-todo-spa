@@ -41,7 +41,8 @@ class Kernel extends HttpKernel
         'api' => [
             // SPA認証時はコメントアウト解除
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\Routing\Middleware\ThrottleRequests::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
