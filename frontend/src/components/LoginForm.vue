@@ -1,30 +1,24 @@
 <script setup lang="ts">
 import MainHeader from '@/components/MainHeader.vue';
 import { ref } from 'vue';
+import { useAuthStore } from '@/stores/store';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
 
+const authStore = useAuthStore();
 const router = useRouter();
 
 const email = ref<string>('');
 const password = ref<string>('');
 
-const login = () => {
-  return new Promise((resolve, reject) => {
-    axios.get('/sanctum/csrf-cookie').then(() => {
-      axios.post('/api/login', {
-        email: email.value,
-        password: password.value
-      }).then(() => {
-        resolve(true);
-        router.push({ name: 'home' });
-      }).catch((error) => {
-        console.log(error);
-        reject(true);
-      })
-    });
-  });
+const login = async () => {
+  try {
+    await authStore.login({ email: email.value, password: password.value });
+    router.push({ name: 'home' });
+  } catch (error) {
+    console.error('ログインエラー', error);
+  }
 }
+
 </script>
 
 <template>
